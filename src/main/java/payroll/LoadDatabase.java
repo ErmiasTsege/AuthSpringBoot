@@ -18,7 +18,7 @@ class LoadDatabase {
 //            log.info("Preloading " + repository.save(new Employee("Bilbo Baggins", "burglar")));
 //            log.info("Preloading " + repository.save(new Employee("Frodo Baggins", "thief")));
 //            log.info("Preloading " + repository.save(new Employee("Ermi Banbino", "Teacher")));
-//
+
             log.info("Preloading " + repository.save(new User("Bilbo Baggins", "burglar")));
             log.info("Preloading " + repository.save(new User("Frodo Baggins", "thief")));
             log.info("Preloading " + repository.save(new User("Ermi Banbino", "Teacher")));

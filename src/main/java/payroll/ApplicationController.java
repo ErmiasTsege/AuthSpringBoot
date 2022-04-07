@@ -1,28 +1,30 @@
 package payroll;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/rest/auth")
 public class ApplicationController {
+    @Autowired
+private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
-    private final UserRepository repository;
+@PostMapping("/admin/add")
+public String addUser(@RequestBody User user){
+    String pwd=user.getPassword();
+    String encryptedPwd=passwordEncoder.encode(pwd);
+    user.setPassword(encryptedPwd);
+    userRepository.save(user);
+    return "User Added Successfully";
+}
+//    @GetMapping("/profile")
+//    public String process(){
+//        return "passed the spring security through DB";
+//    }
 
-    ApplicationController(UserRepository repository) {
-        this.repository = repository;
-    }
 
-    @GetMapping("/process")
-    public String process(){
-        return "passed the spring security through DB";
-    }
-
-    @GetMapping("/users")
-    List<User> all() {
-        return repository.findAll();
-    }
 }
